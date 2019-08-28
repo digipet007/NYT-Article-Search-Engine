@@ -21,7 +21,25 @@ function runQuery(numArticles, queryURL){
     $.ajax({url: queryURL, method: "GET"})
         .done(function(NYTData){
             console.log(queryURL);
-            console.log(numResults)
+            for(i = 0; i < numArticles; i++){
+                console.log(NYTData.response.docs[i].web_url);
+
+                //Manipulate DOM to create a div for each displayed item
+                var cardSection = $("<div>");
+                cardSection.addClass("card card-body bg-light");
+                cardSection.attr("id", "article-" + i);
+                $("#card-section").append(cardSection);
+
+                // Attach article content to its respective div
+                var title = (NYTData.response.docs[i].headline.main);
+                $("article-" + i).append(title);
+                // var author = NYTData.response.docs[0].byline.original
+                // var section = NYTData.response.docs[0].section_name
+                // var date = NYTData.response.docs[0].pub_date;
+                // var link = NYTData.response.docs[0].web_url;
+            }
+            
+            // console.log(numResults)
             console.log(NYTData);
         })
     
@@ -38,10 +56,9 @@ $("#searchBtn").on("click", function(){
     var newURL = queryURLBase + "&q=" + queryTerm;
 
     //Add in the number of reords to retrieve
-    numResults = $("#numRecords").val(); //not retrieving value
-
-    //Send the AJAX Call the URL
-    runQuery(numResults, queryURLBase);
+    numResults = parseInt($("#numRecords").val(), 10); 
+    // console.log(numResults);
+    // console.log(typeof numResults);
 
     //Get the start year and the end year
     startYear = $("#startYear").val().trim();
@@ -51,17 +68,20 @@ $("#searchBtn").on("click", function(){
 
     if(parseInt(startYear)) {
         startYear = startYear + "0101";
+        parseInt(startYear);
         //Add the date info to the URL
-        newURL = newURL + "&begin_date=" + startYear + "&end_date=" + endYear;
+        newURL = newURL + "&begin_date=" + startYear;
     }
     if(parseInt(endYear)) {
         endYear = endYear + "0101";
+        parseInt(endYear);
         //Add the date info to the URL
         newURL = newURL + "&end_date=" + endYear;
     }
 
     // console.log(newURL);
-    
+    //Send the AJAX Call the URL
+    runQuery(numResults, newURL);
 
     //prevents program from going to a new page
     return false;
