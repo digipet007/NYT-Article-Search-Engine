@@ -51,7 +51,7 @@ function runQuery(numArticles, queryURL){
                 $("#article-" + i).append("<a href=" + NYTData.response.docs[i].web_url + ">" + NYTData.response.docs[0].web_url + "</a>");
             }
             
-            // console.log(numResults)
+            // problem: if I specify a start year and an end year, NYTData object displays the first result twice. WHYY
             console.log(NYTData);
         })
     
