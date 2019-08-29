@@ -20,6 +20,8 @@ function runQuery(numArticles, queryURL){
     //AJAX Function
     $.ajax({url: queryURL, method: "GET"})
         .done(function(NYTData){
+            //remove all child nodes from card section whenever the API call is made. (deals with edge case of piling cards on multiple searches)
+            $("#card-section").empty();
             console.log(queryURL);
             for(i = 0; i < numArticles; i++){
                 console.log(NYTData.response.docs[i].web_url);
@@ -30,13 +32,24 @@ function runQuery(numArticles, queryURL){
                 cardSection.attr("id", "article-" + i);
                 $("#card-section").append(cardSection);
 
+                //if the returned object is missing key values, don't render that info
+                //this series of conditionals tracks headline and section name to make sure they exist
+                if(NYTData.response.docs[i].headline != null){
+                    console.log(NYTData.response.docs[i].headline.main);
+                    $("#article-" + i).append("<h3>" + NYTData.response.docs[i].headline.main + "</h3>");
+                }
+                //if there is a byline and it has the property/key of "original", then render it
+                if(NYTData.rsponse.docs[i].byline && NYTData.response.docs[i].byline.hasOwnProperty("original")){
+                    console.log(NYTData.response.docs[i].byline.original);
+                    $("#article-" + i).append("<h4>" + NYTData.response.docs[i].byline.original + "</h4>");
+                }
+
                 // Attach article content to its respective div
-                var title = (NYTData.response.docs[i].headline.main);
-                $("article-" + i).append(title);
-                // var author = NYTData.response.docs[0].byline.original
-                // var section = NYTData.response.docs[0].section_name
-                // var date = NYTData.response.docs[0].pub_date;
-                // var link = NYTData.response.docs[0].web_url;
+                $("#article-" + i).append("<h3>" + NYTData.response.docs[i].headline.main + "</h3>");
+                $("#article-" + i).append("<h5>" + NYTData.response.docs[i].section_name + "</h5>");
+                $("#article-" + i).append("<h4>" + NYTData.response.docs[i].byline.original + "</h4>");
+                $("#article-" + i).append("<h5>" + NYTData.response.docs[i].pub_date + "</h5>");
+                $("#article-" + i).append("<a href=" + NYTData.response.docs[i].web_url + ">" + NYTData.response.docs[0].web_url + "</a>");
             }
             
             // console.log(numResults)
