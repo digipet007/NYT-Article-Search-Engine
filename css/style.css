@@ -1,3 +1,22 @@
+body {
+    background-color: rgba(190, 200, 250, 0.376);
+}
+
 #bottom-row {
     margin-top: 32px;
+}
+
+h1 {
+    font-family: 'Cousine', monospace;
+    color: white;
+    font-weight: 800;
+}
+
+.jumbotron {
+    background-color: rgba(0, 0, 77, 1);
+}
+
+.card-header {
+    color: white;
+    background-color: rgba(0, 0, 77, 1);
 }

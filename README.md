@@ -41,4 +41,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 * This app utilizes the Bootstrap framework (https://getbootstrap.com/) 
 * Utilizes the New York Times Database (https://developer.nytimes.com/)
+* Utilizes Google Fonts (https://fonts.google.com)
 * Created for UW Full Stack Flex Certificate program, according to program specifications.
