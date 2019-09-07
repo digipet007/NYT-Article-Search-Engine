@@ -39,8 +39,10 @@ function runQuery(numArticles, queryURL){
                     $("#article-" + i).append("<h4>" + NYTData.response.docs[i].byline.original + "</h4>");
                 }
                 // Attach article content to its respective div
+                var betterdate = moment(NYTData.response.docs[i].pub_date).format('MMMM Do YYYY, h:mm:ss a');
+                console.log(betterdate);
                 $("#article-" + i).append("<h5>" + NYTData.response.docs[i].section_name + "</h5>");
-                $("#article-" + i).append("<h5>" + NYTData.response.docs[i].pub_date + "</h5>");
+                $("#article-" + i).append("<h5>" + betterdate + "</h5>");
                 $("#article-" + i).append("<a href=" + NYTData.response.docs[i].web_url + ">" + NYTData.response.docs[0].web_url + "</a>");
             }
         })  

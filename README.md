@@ -14,10 +14,11 @@ This search engine in most browsers for desktop computers, laptops, or mobile de
 
 ## Built With
 
-*HTML
-*CSS
-*Bootstrap
-*uses Javascript and jQuery to dynamically update the HTML
+* HTML
+* CSS
+* Bootstrap
+* uses Javascript
+* Moment.js
 
 ## Contributing
 
