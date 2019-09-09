@@ -24,9 +24,9 @@ This search engine in most browsers for desktop computers, laptops, or mobile de
 
 Pull requests welcome!
 
-## Authors
+## Author
 
-* **Sarah Arnold** --view my portfolio and bio: (https://digipet007.github.io/Bootstrap-Portfolio/)
+* **Sarah Arnold** --view my portfolio and bio: (https://digipet007.github.io/Sarahs-Portfolio/)
 
 ## License
 
