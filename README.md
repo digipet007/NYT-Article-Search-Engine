@@ -1,6 +1,6 @@
 # NYT-Article-Search-Engine
 
-This is a search engine for New York Times articles. It utilizes Javascript, jQuery, and API calls to interface with the New York Times database.
+This is a search engine for New York Times articles. It utilizes Javascript, jQuery, and AJAX calls to the New York Times API.
 
 ## Getting Started
 
@@ -17,7 +17,7 @@ This search engine in most browsers for desktop computers, laptops, or mobile de
 * HTML
 * CSS
 * Bootstrap
-* uses Javascript
+* Javascript
 * Moment.js
 
 ## Contributing
