@@ -10,7 +10,7 @@ or simply use the application online: (https://digipet007.github.io/NYT-Article-
 
 ### Prerequisites
 
-This search engine in most browsers for desktop computers, laptops, or mobile devices.
+This search engine works in most browsers for desktop computers, laptops, or mobile devices.
 
 ## Built With
 
@@ -33,4 +33,3 @@ Pull requests welcome!
 * This app utilizes the Bootstrap framework (https://getbootstrap.com/) 
 * Utilizes the New York Times Database (https://developer.nytimes.com/)
 * Utilizes Google Fonts (https://fonts.google.com)
-* Created for UW Full Stack Flex Certificate program, according to program specifications.
