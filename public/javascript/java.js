@@ -1,14 +1,14 @@
-$(function() {
-  $("#queryForm")
-    .parsley()
-    .on("field:validated", function() {
-      console.log("validated whether true or false");
-    });
-});
+// $(function() {
+//   $("#queryForm")
+//     .parsley()
+//     .on("field:validated", function() {
+//       console.log("validated whether true or false");
+//     });
+// });
 
 //SETUP VARIABLES
 //===============================================
-var authKey = "psE8JudDOYAJlFc7J0AcAFAwAGlJ0rsG";
+// var authKey = process.env.API_KEY;
 var queryTerm = "";
 var numResults = 0;
 var startYear = 0;
@@ -18,10 +18,9 @@ var endYear = 0;
 var queryURLBase =
   "https://api.nytimes.com/svc/search/v2/articlesearch.json?" +
   "&api-key=" +
-  authKey;
-
-//track number of articles
-var articleCounter = 0;
+  // process.env.API_KEY;
+  "psE8JudDOYAJlFc7J0AcAFAwAGlJ0rsG";
+//bug: can't access environmental variable because this file is on the front end
 
 //FUNCTIONS
 //===============================================
@@ -29,8 +28,9 @@ var articleCounter = 0;
 function runQuery(numArticles, queryURL) {
   //AJAX Function
   $.ajax({ url: queryURL, method: "GET" }).done(function(NYTData) {
-    $("#card-section").empty();
     console.log(queryURL);
+    console.log(NYTData);
+    $("#card-section").empty();
     for (i = 0; i < numArticles; i++) {
       //Manipulate DOM to create a div for each displayed item
       var cardSection = $("<div>");
@@ -95,14 +95,25 @@ $("#searchBtn").on("click", function() {
   var todaysYear = moment().year();
   var intStartYear = parseInt(startYear);
   var intEndYear = parseInt(endYear);
-  if (todaysYear < intStartYear || todaysYear < intEndYear) {
-    return false;
+
+  //validation
+  if (intStartYear && intEndYear) {
+    if (todaysYear < intStartYear || todaysYear < intEndYear) {
+      return false;
+    }
+    if (isNaN(intStartYear) || isNaN(intEndYear)) {
+      return false;
+    }
   }
-  if (intStartYear < 1900 || intEndYear < 1900) {
-    return false;
+  if (intStartYear) {
+    if (intStartYear < 1900) {
+      return false;
+    }
   }
-  if (isNaN(intStartYear) || isNaN(intEndYear)) {
-    return false;
+  if (intEndYear) {
+    if (intEndYear < 1900) {
+      return false;
+    }
   }
   if (!queryTerm) {
     return false;
@@ -122,6 +133,7 @@ $("#searchBtn").on("click", function() {
   }
   //Send the AJAX Call the URL
   runQuery(numResults, newURL);
+  console.log("ran query");
   //prevents program from going to a new page
   return false;
 });
