@@ -6,11 +6,8 @@
 //     });
 // });
 
-// require("dotenv").config();
-
 //SETUP VARIABLES
 //===============================================
-// var authKey = process.env.API_KEY;
 var queryTerm = "";
 var numResults = 0;
 var startYear = 0;
@@ -78,6 +75,7 @@ function runQuery(numArticles, queryURL) {
 //MAIN PROCESSES
 //===============================================
 $("#searchBtn").on("click", function() {
+  //parsley validation
   $("#queryForm").parsley();
   //get search term to add to queryURLBase
   queryTerm = $("#search")
@@ -93,47 +91,14 @@ $("#searchBtn").on("click", function() {
   endYear = $("#endYear")
     .val()
     .trim();
-  // Validate Input
-  var todaysYear = moment().year();
-  var intStartYear = parseInt(startYear);
-  var intEndYear = parseInt(endYear);
 
-  //validation
-  if (startYear && endYear) {
-    if (todaysYear < intStartYear || todaysYear < intEndYear) {
-      console.log("start year less than end year");
-      return false;
-    }
+  // Validate Input
+  var valid = validateInput();
+
+  if (!valid) {
+    return;
   }
-  if (startYear) {
-    console.log("we have a start year");
-    if (isNaN(startYear)) {
-      console.log("start year not a num!");
-      return false;
-    }
-  }
-  if (endYear) {
-    console.log("we have an end year");
-    if (isNaN(endYear)) {
-      console.log("end year not a num!");
-      return false;
-    }
-  }
-  if (startYear) {
-    if (intStartYear < 1900) {
-      console.log("start year too small!");
-      return false;
-    }
-  }
-  if (endYear) {
-    if (intEndYear < 1900) {
-      console.log("end year too small");
-      return false;
-    }
-  }
-  if (!queryTerm) {
-    return false;
-  }
+
   //Define URL
   if (startYear) {
     startYear = startYear + "0101";
@@ -153,6 +118,56 @@ $("#searchBtn").on("click", function() {
   //prevents program from going to a new page
   return false;
 });
+
+function validateInput() {
+  var todaysYear = moment().year();
+
+  if (startYear && endYear) {
+    if (parseInt(startYear) > parseInt(endYear)) {
+      console.log("start year less than end year");
+      return false;
+    }
+  }
+
+  if (startYear) {
+    console.log("we have a start year");
+    if (isNaN(startYear)) {
+      console.log("start year not a num!");
+      return false;
+    }
+    if (todaysYear < parseInt(startYear)) {
+      console.log("start year greater than current ");
+      return false;
+    }
+    if (parseInt(startYear) < 1900) {
+      console.log("start year too small!");
+      return false;
+    }
+  }
+
+  if (endYear) {
+    console.log("we have an end year");
+    if (isNaN(endYear)) {
+      console.log("end year not a num!");
+      return false;
+    }
+    if (todaysYear < parseInt(endYear)) {
+      console.log("end year greater than current ");
+      return false;
+    }
+    if (parseInt(endYear) < 1900) {
+      console.log("end year too small");
+      return false;
+    }
+  }
+
+  if (!queryTerm) {
+    console.log("no query term");
+    return false;
+  }
+
+  return true;
+}
 
 $("#clear").on("click", function() {
   $(".clearThis").empty();
