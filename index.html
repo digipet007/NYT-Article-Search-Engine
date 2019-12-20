@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Cousine&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
@@ -30,7 +30,7 @@
                             <form id="queryForm" data-parsley-validate>
                                 <label for="search">Search Term:</label>
                                 <input type="text" class="form-control clearThis" id="search" placeholder="Search Terms" 
-                                data-parsley-length="[2, 4]" data-parsley-type="alphanum" data-parsley-trigger="change" required="true">
+                                 data-parsley-type="alphanum" data-parsley-trigger="change" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="sel1">Number of Records to Retrieve:</label>
@@ -42,11 +42,11 @@
                                 </div>
                                 <div class="form-group" data-parsley-validate>
                                     <label for="startYear">Start Year:</label>
-                                    <input type="text" class="form-control clearThis" id="startYear" placeholder="optional" data-parsley-type="integer" data-parsley-length="[4, 4]" data-parsley-min="1900" data-parsley-max="2040" data-parsley-trigger="keyup" required="true" data-parsley-error-message="must be a year between 1900 and today's year">
+                                    <input type="text" class="form-control clearThis" id="startYear" placeholder="optional" data-parsley-type="integer" data-parsley-length="[4, 4]" data-parsley-min="1900" data-parsley-max="2040" data-parsley-trigger="keyup" data-parsley-error-message="must be a year between 1900 and the current year">
                                 </div>
                                 <div class="form-group" data-parsley-validate>
                                         <label for="endYear">End Year:</label>
-                                        <input type="text" class="form-control clearThis" id="endYear" placeholder="optional" data-parsley-type="integer" data-parsley-length="[4, 4]" data-parsley-min="1900" data-parsley-max="2040" data-parsley-trigger="keyup" required="true" data-parsley-error-message="must be a year between 1900 and today's year">
+                                        <input type="text" class="form-control clearThis" id="endYear" placeholder="optional" data-parsley-type="integer" data-parsley-length="[4, 4]" data-parsley-min="1900" data-parsley-max="2040" data-parsley-trigger="keyup" data-parsley-error-message="must be a year between 1900 and today's year">
                                     </div>
                             <a href="#" type="submit" class="btn btn-warning" id="searchBtn">Search</a>
                             <a href="#" type="button" class="btn btn-warning" id="clear">Clear</a>
@@ -66,6 +66,6 @@
             </div>
         </div>  
     </div>
-    <script src="javascript/java.js"></script>
+    <script src="/javascript/java.js"></script>
 </body>
 </html>

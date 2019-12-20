@@ -1,14 +1,16 @@
-$(function() {
-  $("#queryForm")
-    .parsley()
-    .on("field:validated", function() {
-      console.log("validated whether true or false");
-    });
-});
+// $(function() {
+//   $("#queryForm")
+//     .parsley()
+//     .on("field:validated", function() {
+//       console.log("validated whether true or false");
+//     });
+// });
+
+// require("dotenv").config();
 
 //SETUP VARIABLES
 //===============================================
-var authKey = "psE8JudDOYAJlFc7J0AcAFAwAGlJ0rsG";
+// var authKey = process.env.API_KEY;
 var queryTerm = "";
 var numResults = 0;
 var startYear = 0;
@@ -18,10 +20,9 @@ var endYear = 0;
 var queryURLBase =
   "https://api.nytimes.com/svc/search/v2/articlesearch.json?" +
   "&api-key=" +
-  authKey;
-
-//track number of articles
-var articleCounter = 0;
+  // process.env.API_KEY;
+  "psE8JudDOYAJlFc7J0AcAFAwAGlJ0rsG";
+//bug: can't access environmental variable because this file is on the front end
 
 //FUNCTIONS
 //===============================================
@@ -29,8 +30,9 @@ var articleCounter = 0;
 function runQuery(numArticles, queryURL) {
   //AJAX Function
   $.ajax({ url: queryURL, method: "GET" }).done(function(NYTData) {
-    $("#card-section").empty();
     console.log(queryURL);
+    console.log(NYTData);
+    $("#card-section").empty();
     for (i = 0; i < numArticles; i++) {
       //Manipulate DOM to create a div for each displayed item
       var cardSection = $("<div>");
@@ -39,7 +41,7 @@ function runQuery(numArticles, queryURL) {
       $("#card-section").append(cardSection);
       //if the returned object is missing key values, don't render that info
       //this series of conditionals tracks headline and section name to make sure they exist
-      if (NYTData.response.docs[i].headline != null) {
+      if (NYTData.response.docs[i].headline !== null) {
         $("#article-" + i).append(
           "<h3>" + NYTData.response.docs[i].headline.main + "</h3>"
         );
@@ -47,7 +49,7 @@ function runQuery(numArticles, queryURL) {
       //if there is a byline and it has the property/key of "original", then render it
       if (
         NYTData.response.docs[i].byline &&
-        NYTData.response.docs[i].byline.original != null
+        NYTData.response.docs[i].byline.original !== null
       ) {
         console.log(NYTData.response.docs[i].byline.original);
         $("#article-" + i).append(
@@ -95,14 +97,39 @@ $("#searchBtn").on("click", function() {
   var todaysYear = moment().year();
   var intStartYear = parseInt(startYear);
   var intEndYear = parseInt(endYear);
-  if (todaysYear < intStartYear || todaysYear < intEndYear) {
-    return false;
+
+  //validation
+  if (startYear && endYear) {
+    if (todaysYear < intStartYear || todaysYear < intEndYear) {
+      console.log("start year less than end year");
+      return false;
+    }
   }
-  if (intStartYear < 1900 || intEndYear < 1900) {
-    return false;
+  if (startYear) {
+    console.log("we have a start year");
+    if (isNaN(startYear)) {
+      console.log("start year not a num!");
+      return false;
+    }
   }
-  if (isNaN(intStartYear) || isNaN(intEndYear)) {
-    return false;
+  if (endYear) {
+    console.log("we have an end year");
+    if (isNaN(endYear)) {
+      console.log("end year not a num!");
+      return false;
+    }
+  }
+  if (intStartYear) {
+    if (intStartYear < 1900) {
+      console.log("start year too small!");
+      return false;
+    }
+  }
+  if (intEndYear) {
+    if (intEndYear < 1900) {
+      console.log("end year too small");
+      return false;
+    }
   }
   if (!queryTerm) {
     return false;
@@ -122,6 +149,7 @@ $("#searchBtn").on("click", function() {
   }
   //Send the AJAX Call the URL
   runQuery(numResults, newURL);
+  console.log("ran query");
   //prevents program from going to a new page
   return false;
 });
