@@ -6,6 +6,8 @@
 //     });
 // });
 
+// require("dotenv").config();
+
 //SETUP VARIABLES
 //===============================================
 // var authKey = process.env.API_KEY;
@@ -39,7 +41,7 @@ function runQuery(numArticles, queryURL) {
       $("#card-section").append(cardSection);
       //if the returned object is missing key values, don't render that info
       //this series of conditionals tracks headline and section name to make sure they exist
-      if (NYTData.response.docs[i].headline != null) {
+      if (NYTData.response.docs[i].headline !== null) {
         $("#article-" + i).append(
           "<h3>" + NYTData.response.docs[i].headline.main + "</h3>"
         );
@@ -47,7 +49,7 @@ function runQuery(numArticles, queryURL) {
       //if there is a byline and it has the property/key of "original", then render it
       if (
         NYTData.response.docs[i].byline &&
-        NYTData.response.docs[i].byline.original != null
+        NYTData.response.docs[i].byline.original !== null
       ) {
         console.log(NYTData.response.docs[i].byline.original);
         $("#article-" + i).append(
@@ -97,21 +99,35 @@ $("#searchBtn").on("click", function() {
   var intEndYear = parseInt(endYear);
 
   //validation
-  if (intStartYear && intEndYear) {
+  if (startYear && endYear) {
     if (todaysYear < intStartYear || todaysYear < intEndYear) {
+      console.log("start year less than end year");
       return false;
     }
-    if (isNaN(intStartYear) || isNaN(intEndYear)) {
+  }
+  if (startYear) {
+    console.log("we have a start year");
+    if (isNaN(startYear)) {
+      console.log("start year not a num!");
+      return false;
+    }
+  }
+  if (endYear) {
+    console.log("we have an end year");
+    if (isNaN(endYear)) {
+      console.log("end year not a num!");
       return false;
     }
   }
   if (intStartYear) {
     if (intStartYear < 1900) {
+      console.log("start year too small!");
       return false;
     }
   }
   if (intEndYear) {
     if (intEndYear < 1900) {
+      console.log("end year too small");
       return false;
     }
   }
