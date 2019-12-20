@@ -119,13 +119,13 @@ $("#searchBtn").on("click", function() {
       return false;
     }
   }
-  if (intStartYear) {
+  if (startYear) {
     if (intStartYear < 1900) {
       console.log("start year too small!");
       return false;
     }
   }
-  if (intEndYear) {
+  if (endYear) {
     if (intEndYear < 1900) {
       console.log("end year too small");
       return false;
@@ -135,13 +135,13 @@ $("#searchBtn").on("click", function() {
     return false;
   }
   //Define URL
-  if (intStartYear) {
+  if (startYear) {
     startYear = startYear + "0101";
     parseInt(startYear);
     //Add the date info to the URL
     newURL = newURL + "&begin_date=" + startYear;
   }
-  if (intEndYear) {
+  if (endYear) {
     endYear = endYear + "0101";
     parseInt(endYear);
     //Add the date info to the URL
